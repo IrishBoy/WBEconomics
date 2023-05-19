@@ -12,11 +12,34 @@ import (
 
 func main() {
 
-	// loadDetailedReport()
+	// reports := loadDetailedReport()
+	// report := loadFinanceReport()
+	// fmt.Printf("%+v\n", report)
+}
+
+func loadFinanceReport() types.FinancialReport {
+	f, err := excelize.OpenFile("../../FinancialReport.xlsx")
+	if err != nil {
+		log.Fatal(err)
+	}
+	sheetName := "Отчет"
+
+	commision, err := f.GetCellValue(sheetName, "M31")
+	shop_sold_amount, err := f.GetCellValue(sheetName, "M21")
+	start_period, err := f.GetCellValue(sheetName, "L7")
+	end_period, err := f.GetCellValue(sheetName, "N7")
+
+	report := types.FinancialReport{
+		Commision:        getFloatValue(commision),
+		Shop_sold_amount: getFloatValue(shop_sold_amount),
+		Start_period:     getDateValue(start_period),
+		End_period:       getDateValue(end_period),
+	}
+	return report
 
 }
 
-func loadDetailedReport() {
+func loadDetailedReport() []types.DetailedOperation {
 	f, err := excelize.OpenFile("../../DetailedReport.xlsx")
 	if err != nil {
 		log.Fatal(err)
@@ -104,6 +127,7 @@ func loadDetailedReport() {
 		}
 		reports = append(reports, report)
 	}
+	return reports
 }
 
 func getIntValue(row []string, columnIndex int) int {

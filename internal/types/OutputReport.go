@@ -11,40 +11,40 @@ type SoldUnit struct {
 }
 
 type OutputReport struct {
-	start_period                       time.Time
-	end_period                         time.Time
-	week_number                        int
-	comission                          float32
-	fullfilment_amount                 float32
-	packaging_amount                   float32
-	taxes                              float32
-	prime_cost                         float32
-	logistc_amount                     float32
-	sold_units                         []SoldUnit
-	shop_sold_amount                   float32
-	return_number                      int
-	return_amount                      float32
-	self_purchase_number               int
-	self_purchase_amount               float32
-	self_purchase_services_amount      float32
-	self_purchase_amount_percent       float32
-	sales_amount_without_self_purchase float32
-	ads_amount                         float32
-	other_expenses_amount              float32
-	salaries                           float32
-	storage                            float32
-	net_profit                         float32
+	Start_period                       time.Time
+	End_period                         time.Time
+	Week_number                        int
+	Comission                          float64
+	Fullfilment_amount                 float64
+	Packaging_amount                   float64
+	Taxes                              float64
+	Prime_cost                         float64
+	Logistc_amount                     float64
+	Sold_units                         []SoldUnit
+	Shop_sold_amount                   float64
+	Return_number                      int
+	Return_amount                      float64
+	Self_purchase_number               int
+	Self_purchase_amount               float64
+	Self_purchase_services_amount      float64
+	Self_purchase_amount_percent       float64
+	Sales_amount_without_self_purchase float64
+	Ads_amount                         float64
+	Other_expenses_amount              float64
+	Salaries                           float64
+	Storage                            float64
+	Net_profit                         float64
 }
 
 func (outputReport *OutputReport) calculateSalestWithoutSelfPurchase() {
-	outputReport.sales_amount_without_self_purchase = outputReport.shop_sold_amount - outputReport.self_purchase_amount
+	outputReport.Sales_amount_without_self_purchase = outputReport.Shop_sold_amount - outputReport.Self_purchase_amount
 }
 
 func (outputReport *OutputReport) calculateNetProfit() {
-	outputReport.net_profit = outputReport.sales_amount_without_self_purchase - outputReport.comission -
-		outputReport.fullfilment_amount - outputReport.packaging_amount -
-		outputReport.taxes - outputReport.prime_cost -
-		outputReport.logistc_amount - outputReport.ads_amount -
-		outputReport.other_expenses_amount - outputReport.salaries -
-		outputReport.salaries - outputReport.storage
+	outputReport.Net_profit = outputReport.Sales_amount_without_self_purchase - outputReport.Comission -
+		outputReport.Fullfilment_amount - outputReport.Packaging_amount -
+		outputReport.Taxes - outputReport.Prime_cost -
+		outputReport.Logistc_amount - outputReport.Ads_amount -
+		outputReport.Other_expenses_amount - outputReport.Salaries -
+		outputReport.Salaries - outputReport.Storage
 }
