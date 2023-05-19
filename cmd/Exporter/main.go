@@ -2,32 +2,31 @@ package main
 
 import (
 	"WBEconomics/internal/types"
+	"fmt"
 	"log"
 	"strconv"
 	"time"
 
-	// "config"
 	"github.com/xuri/excelize/v2"
 )
 
 func main() {
 
 	// reports := loadDetailedReport()
-	// report := loadFinanceReport()
-	// fmt.Printf("%+v\n", report)
+	report := loadFinanceReport()
+	fmt.Printf("%+v\n", report)
 }
 
 func loadFinanceReport() types.FinancialReport {
-	f, err := excelize.OpenFile("../../FinancialReport.xlsx")
+	f, err := excelize.OpenFile(FileNameFinancialReport)
 	if err != nil {
 		log.Fatal(err)
 	}
-	sheetName := "Отчет"
 
-	commision, err := f.GetCellValue(sheetName, "M31")
-	shop_sold_amount, err := f.GetCellValue(sheetName, "M21")
-	start_period, err := f.GetCellValue(sheetName, "L7")
-	end_period, err := f.GetCellValue(sheetName, "N7")
+	commision, err := f.GetCellValue(SheetNameFinancialReport, CellComissionsFinancialReport)
+	shop_sold_amount, err := f.GetCellValue(SheetNameFinancialReport, CellShopSoldAmountFinancialReport)
+	start_period, err := f.GetCellValue(SheetNameFinancialReport, CellStartPeriodFinancialReport)
+	end_period, err := f.GetCellValue(SheetNameFinancialReport, CellEndPeriodFinancialReport)
 
 	report := types.FinancialReport{
 		Commision:        getFloatValue(commision),
@@ -36,20 +35,16 @@ func loadFinanceReport() types.FinancialReport {
 		End_period:       getDateValue(end_period),
 	}
 	return report
-
 }
 
 func loadDetailedReport() []types.DetailedOperation {
-	f, err := excelize.OpenFile("../../DetailedReport.xlsx")
+	f, err := excelize.OpenFile(FileNameDetailedReport)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// Get the sheet name
-	sheetName := "Детализация" // Assuming the data is in the first sheet
-
 	// Read the column names from the first row
-	rows, err := f.GetRows(sheetName)
+	rows, err := f.GetRows(SheetNameDetailedReport)
 	if err != nil {
 		log.Fatal(err)
 	}
