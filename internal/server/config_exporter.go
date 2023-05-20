@@ -1,10 +1,4 @@
-package main
-
-// var SheetNameFinancialReport string
-
-// func init() {
-// 	SheetNameFinancialReport = "Отчет"
-// }
+package server
 
 const (
 	FileNameFinancialReport           = "../../FinancialReport.xlsx"
@@ -14,5 +8,6 @@ const (
 	CellStartPeriodFinancialReport    = "L7"
 	CellEndPeriodFinancialReport      = "N7"
 
-	FileNameDetailedReport = "../../FinancialReport.xlsx"
+	FileNameDetailedReport  = "../../FinancialReport.xlsx"
+	SheetNameDetailedReport = "Детализация"
 )

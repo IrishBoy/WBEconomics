@@ -1,8 +1,7 @@
-package main
+package server
 
 import (
 	"WBEconomics/internal/types"
-	"fmt"
 	"log"
 	"strconv"
 	"time"
@@ -10,12 +9,12 @@ import (
 	"github.com/xuri/excelize/v2"
 )
 
-func main() {
+// func main() {
 
-	// reports := loadDetailedReport()
-	report := loadFinanceReport()
-	fmt.Printf("%+v\n", report)
-}
+// 	// reports := loadDetailedReport()
+// 	report := loadFinanceReport()
+// 	fmt.Printf("%+v\n", report)
+// }
 
 func loadFinanceReport() types.FinancialReport {
 	f, err := excelize.OpenFile(FileNameFinancialReport)
