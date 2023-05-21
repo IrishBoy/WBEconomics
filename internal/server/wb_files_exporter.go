@@ -16,8 +16,12 @@ import (
 // 	fmt.Printf("%+v\n", report)
 // }
 
-func loadFinanceReport() types.FinancialReport {
-	f, err := excelize.OpenFile(FileNameFinancialReport)
+func loadFinanceReport(FilePathFinancialReport ...string) types.FinancialReport {
+	var FinancialReportPath = FileNameFinancialReport
+	if len(FilePathFinancialReport) > 0 {
+		FinancialReportPath = FilePathFinancialReport[0]
+	}
+	f, err := excelize.OpenFile(FinancialReportPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -36,8 +40,12 @@ func loadFinanceReport() types.FinancialReport {
 	return report
 }
 
-func loadDetailedReport() []types.DetailedOperation {
-	f, err := excelize.OpenFile(FileNameDetailedReport)
+func loadDetailedReport(FilePathDetailedlReport ...string) []types.DetailedOperation {
+	var DetailedReportPath = FileNameDetailedReport
+	if len(FilePathDetailedlReport) > 0 {
+		DetailedReportPath = FilePathDetailedlReport[0]
+	}
+	f, err := excelize.OpenFile(DetailedReportPath)
 	if err != nil {
 		log.Fatal(err)
 	}
