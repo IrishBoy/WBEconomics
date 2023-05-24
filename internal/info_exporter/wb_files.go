@@ -5,10 +5,10 @@ import (
 	"time"
 )
 
-func getDetailedReport(user int, start_period time.Time, end_period time.Time) ([]types.DetailedOperation, error) {
+func getDetailedReportFile(user int, start_period time.Time, end_period time.Time) ([]types.DetailedOperation, error) {
 	return nil, nil
 }
 
-func getFinancialReport(user int, start_period time.Time, end_period time.Time) ([]types.DetailedOperation, error) {
-	return nil, nil
+func getFinancialReportFile(user int, start_period time.Time, end_period time.Time) (types.FinancialReport, error) {
+	return types.FinancialReport{}, nil
 }
