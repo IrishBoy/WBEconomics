@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func getDetailedReport(user int, start_period time.Time, end_period time.Time) ([]types.DetailedOperation, error) {
+func getDetailedReport(start_period time.Time, end_period time.Time) ([]types.DetailedOperation, error) {
 
 	if validateTime := periodValidate(start_period, end_period); validateTime != nil {
 		return nil, validateTime
