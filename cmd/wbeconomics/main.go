@@ -1,10 +1,11 @@
 package main
 
 import (
-	wb "WBEconomics/generated/wildberries"
+	"WBEconomics/internal/info_exporter"
 	"WBEconomics/internal/service"
-	"context"
+	"WBEconomics/internal/types/wb_types"
 	"fmt"
+	"time"
 )
 
 type API struct {
@@ -23,45 +24,30 @@ func NewApi(
 
 // }
 func main() {
-	// Create an instance of the DefaultApiService
-	apiService := &wb.DefaultApiService{}
+	fromString := "2023-02-02"
+	toString := "2023-05-02"
+	from, _ := time.Parse("2006-01-02", fromString)
+	to, _ := time.Parse("2006-01-02", toString)
+	opt := wb_types.SupplierReportDetailByPeriodOpts{}
+	response, _ := info_exporter.GetDetailedReportJSON(from, to, opt)
 
-	// Set the necessary parameters
-	dateFrom := "2023-02-02"
-	dateTo := "2023-05-02"
-	var localVarOptionals *wb.DefaultApiApiV1SupplierReportDetailByPeriodGetOpts // Optional parameters, if any
-	// localVarOptionals.Limit= 10
+	fmt.Printf("%s\n", response)
 
-	// Optionally create a context
-	ctx := context.TODO()
-
-	// Call the ApiV1SupplierReportDetailByPeriodGet method
-	reportItems, response, err := apiService.ApiV1SupplierReportDetailByPeriodGet(ctx, dateFrom, dateTo, localVarOptionals)
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
-
-	// Process the retrieved report items
-	for _, item := range reportItems {
-		fmt.Println(item)
-	}
-
-	// Access the response if needed
-	fmt.Println(response)
+	// client := &http.Client{}
+	// req, err := http.NewRequest("GET", "https://statistics-api.wildberries.ru/api/v1/supplier/reportDetailByPeriod?dateFrom=2019-06-20&limit=100000&dateTo=2023-06-20", nil)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// req.Header.Set("accept", "application/json")
+	// req.Header.Set("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImE4MTY3ZjM1LTliZTMtNDZmOC05ODIyLTExMTZkMzc0Nzg3YiJ9.PE-HiXefpEBQ-tthksfkkvl5BxJBpiOkmiOL_nKJIY8")
+	// resp, err := client.Do(req)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// defer resp.Body.Close()
+	// bodyText, err := io.ReadAll(resp.Body)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Printf("%s\n", bodyText)
 }
-
-// func main() {
-// 	fromString := "2023-02-02"
-// 	toString := "2023-05-02"
-// 	from, _ := time.Parse("2006-01-02", fromString)
-// 	to, _ := time.Parse("2006-01-02", toString)
-// 	// client := wb.DefaultApiService{}
-// 	wbClient := info_exporter.WB_client{}
-// 	report, err := wbClient.GetDetailedReportJSON(from, to)
-// 	if err != nil {
-// 		fmt.Println("Error:", err)
-// 	} else {
-// 		fmt.Println(report)
-// 	}
-// }

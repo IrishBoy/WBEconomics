@@ -11,6 +11,7 @@ package wildberries
 import (
 	"context"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -4797,7 +4798,8 @@ type DefaultApiApiV1SupplierReportDetailByPeriodGetOpts struct {
 	Rrdid optional.Int32
 }
 
-func (a *DefaultApiService) ApiV1SupplierReportDetailByPeriodGet(ctx context.Context, dateFrom string, dateTo string, localVarOptionals *DefaultApiApiV1SupplierReportDetailByPeriodGetOpts) ([]DetailReportItem, *http.Response, error) {
+func (a *DefaultApiService) ApiV1SupplierReportDetailByPeriodGet(ctx context.Context, dateFrom string, dateTo string,
+	localVarOptionals *DefaultApiApiV1SupplierReportDetailByPeriodGetOpts) ([]DetailReportItem, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -4807,7 +4809,8 @@ func (a *DefaultApiService) ApiV1SupplierReportDetailByPeriodGet(ctx context.Con
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/supplier/reportDetailByPeriod"
+	// localVarPath := a.client.cfg.BasePath + "/api/v1/supplier/reportDetailByPeriod"
+	localVarPath := "/api/v1/supplier/reportDetailByPeriod"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4817,24 +4820,26 @@ func (a *DefaultApiService) ApiV1SupplierReportDetailByPeriodGet(ctx context.Con
 	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
 		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
 	}
+
 	localVarQueryParams.Add("dateTo", parameterToString(dateTo, ""))
 	if localVarOptionals != nil && localVarOptionals.Rrdid.IsSet() {
 		localVarQueryParams.Add("rrdid", parameterToString(localVarOptionals.Rrdid.Value(), ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+
 	if localVarHttpContentType != "" {
 		localVarHeaderParams["Content-Type"] = localVarHttpContentType
 	}
-
 	// to determine the Accept header
 	localVarHttpHeaderAccepts := []string{"application/json"}
-
 	// set Accept header
 	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
@@ -4851,12 +4856,22 @@ func (a *DefaultApiService) ApiV1SupplierReportDetailByPeriodGet(ctx context.Con
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	_, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
+	// fmt.Printf("%+v\n", r)
+	// header :=
+	req, err := http.NewRequest("GET", "https://statistics-api.wildberries.ru/api/v1/supplier/reportDetailByPeriod?dateFrom=2019-06-20&limit=100000&dateTo=2023-06-20", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	req.Header.Set("accept", "application/json")
+	req.Header.Set("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImE4MTY3ZjM1LTliZTMtNDZmOC05ODIyLTExMTZkMzc0Nzg3YiJ9.PE-HiXefpEBQ-tthksfkkvl5BxJBpiOkmiOL_nKJIY8")
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	print(r)
+	localVarHttpResponse, err := a.client.callAPI(req)
+	print("15\n")
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
