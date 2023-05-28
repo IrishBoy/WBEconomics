@@ -2,23 +2,22 @@ package main
 
 import (
 	"WBEconomics/internal/info_exporter"
-	"WBEconomics/internal/service"
 	"WBEconomics/internal/types/wb_types"
 	"fmt"
 	"time"
 )
 
-type API struct {
-	wb service.WB
-}
+// type API struct {
+// 	wb service.WB
+// }
 
-func NewApi(
-	wb service.WB,
-) *API {
-	return &API{
-		wb: wb,
-	}
-}
+// func NewApi(
+// 	wb service.WB,
+// ) *API {
+// 	return &API{
+// 		wb: wb,
+// 	}
+// }
 
 // func (a *API) wbApi() {
 
@@ -29,9 +28,10 @@ func main() {
 	from, _ := time.Parse("2006-01-02", fromString)
 	to, _ := time.Parse("2006-01-02", toString)
 	opt := wb_types.SupplierReportDetailByPeriodOpts{}
-	response, _ := info_exporter.GetDetailedReportJSON(from, to, opt)
+	report, _, _ := info_exporter.GetDetailedReportAPI(from, to, opt)
 
-	fmt.Printf("%s\n", response)
+	// fmt.Printf("Response: %s\n", response)
+	fmt.Printf("Report: %+v\n", report[0])
 
 	// client := &http.Client{}
 	// req, err := http.NewRequest("GET", "https://statistics-api.wildberries.ru/api/v1/supplier/reportDetailByPeriod?dateFrom=2019-06-20&limit=100000&dateTo=2023-06-20", nil)

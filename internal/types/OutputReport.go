@@ -36,11 +36,11 @@ type OutputReport struct {
 	Net_profit                         float64
 }
 
-func (outputReport *OutputReport) calculateSalestWithoutSelfPurchase() {
+func (outputReport *OutputReport) CalculateSalestWithoutSelfPurchase() {
 	outputReport.Sales_amount_without_self_purchase = outputReport.Shop_sold_amount - outputReport.Self_purchase_amount
 }
 
-func (outputReport *OutputReport) calculateNetProfit() {
+func (outputReport *OutputReport) CalculateNetProfit() {
 	outputReport.Net_profit = outputReport.Sales_amount_without_self_purchase - outputReport.Comission -
 		outputReport.Fullfilment_amount - outputReport.Packaging_amount -
 		outputReport.Taxes - outputReport.Prime_cost -

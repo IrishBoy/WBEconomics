@@ -4869,7 +4869,7 @@ func (a *DefaultApiService) ApiV1SupplierReportDetailByPeriodGet(ctx context.Con
 	req.Header.Set("accept", "application/json")
 	req.Header.Set("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImE4MTY3ZjM1LTliZTMtNDZmOC05ODIyLTExMTZkMzc0Nzg3YiJ9.PE-HiXefpEBQ-tthksfkkvl5BxJBpiOkmiOL_nKJIY8")
 
-	print(r)
+	// print(r)
 	localVarHttpResponse, err := a.client.callAPI(req)
 	print("15\n")
 	if err != nil || localVarHttpResponse == nil {
